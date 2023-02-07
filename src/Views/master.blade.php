@@ -72,8 +72,11 @@
         </nav>
     </header>
 	<div id="panichd_content" class="container-fluid">
+        3232323232323232323
 		@yield('panichd_errors')
+         54545454545454545
         @yield('content')
+        87878787878787
 	</div>
 
     <!-- Scripts -->
