@@ -2401,7 +2401,7 @@ class TicketsController extends Controller
     public function changeRead(Request $request)
     {
         $result = 'error';
-        $message = trans('panichd::lang.read-validation-error').'rerereerere';
+        $message = trans('panichd::lang.read-validation-error');
 
         $original_ticket = Ticket::findOrFail($request->input('ticket_id'));
         $ticket = clone $original_ticket;
@@ -2571,7 +2571,7 @@ class TicketsController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         if (!in_array($value, ['true', 'false'])) {
-            return redirect()->back()->with('warning', 'erererereeee'. trans('panichd::lang.validation-error').'100');
+            return redirect()->back()->with('warning', trans('panichd::lang.validation-error'));
         }
 
         $ticket->hidden = $value == 'true' ? 1 : 0;

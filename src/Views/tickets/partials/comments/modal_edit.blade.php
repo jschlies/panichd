@@ -6,7 +6,6 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">{{ trans('panichd::lang.flash-x') }}</span></button>
             </div>
             <div class="modal-body">
-				8878787878787
 				<div id="edit_comment_errors" class="alert alert-danger" style="display: none;">
 					<button type="button" class="close" data-dismiss="alert">{{ trans('panichd::lang.flash-x') }}</button>
 					<ul></ul>
