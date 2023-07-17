@@ -27,32 +27,32 @@ class PanicHDServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         /**
-         * JMS - code changed to lessen burden on cache
+         * since this calls DB, gotta check if up/down
          */
-        //if (!Schema::hasTable('migrations')) {
-        //    // Database isn't installed yet.
-        //    return;
-        //}
-        //
-        //// Alias for Member model
-        //$loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        //if (Schema::hasTable('panichd_settings') and Setting::where('slug', 'member_model_class')->count() == 1) {
-        //    $member_model_class = Setting::grab('member_model_class');
-        //}
-        //
-        //if (!isset($member_model_class) or $member_model_class == 'default'){
-        //    $member_model_class = Cache::remember('panichd::provider_member_class', 3600, function () {
-        //        // Check App\Models\User existence first
-        //        if (class_exists('\UCSF\DOM\Models\MySQL\Models\User')){
-        //            return 'PanicHD\PanicHD\Models\Member_AppModelsUser';
-        //
-        //        }else{
-        //            // Inherit from App\User as default
-        //            return 'PanicHD\PanicHD\Models\Member_AppUser';
-        //        }
-        //    });
-        //}
+        if ($this->app->isDownForMaintenance()) {
+            return;
+        }
+
+        // Alias for Member model
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        if (Schema::hasTable('panichd_settings') and Setting::where('slug', 'member_model_class')->count() == 1) {
+            $member_model_class = Setting::grab('member_model_class');
+        }
+
+        if (!isset($member_model_class) or $member_model_class == 'default'){
+            $member_model_class = Cache::remember('panichd::provider_member_class', 3600, function () {
+                // Check App\Models\User existence first
+                if (class_exists('\UCSF\DOM\Models\MySQL\Models\User')){
+                    return 'PanicHD\PanicHD\Models\Member_AppModelsUser';
+
+                }else{
+                    // Inherit from App\User as default
+                    return 'PanicHD\PanicHD\Models\Member_AppUser';
+                }
+            });
+        }
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         if (Schema::hasTable('panichd_settings') and Setting::where('slug', 'member_model_class')->count() == 1)
         {
